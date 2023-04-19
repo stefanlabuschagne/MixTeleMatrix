@@ -58,24 +58,47 @@ namespace MixTeleMatrix
 
             using (var stream = File.Open($"C:\\Users\\stefa\\downloads\\vehiclepositions_datafile\\VehiclePositions.dat", FileMode.Open))
             {
-                using (var reader = new BinaryReader(stream, Encoding.UTF8, false))
+
+                try
                 {
-                    var daReaing = new Reading();
 
-                    daReaing.Positionid = reader.ReadInt32();
-                    char c = reader.ReadChar();
-                    while (c != '\0')
+                    using (var reader = new BinaryReader(stream, Encoding.UTF8, false))
                     {
-                        daReaing.VehicleRegistration = daReaing.VehicleRegistration + c;
-                        c = reader.ReadChar();
-                    }
-                    daReaing.Latitude = reader.ReadSingle();
-                    daReaing.Longitude = reader.ReadSingle();
-                    daReaing.RecordedTimeUTC = (ulong)reader.ReadInt64();
+                        while (true)
+                        {
 
-                    daReaingList.Add(daReaing);
+                            var daReaing = new Reading();
+
+                            daReaing.Positionid = reader.ReadInt32();
+                            char c = reader.ReadChar();
+                            while (c != '\0')
+                            {
+                                daReaing.VehicleRegistration = daReaing.VehicleRegistration + c;
+                                c = reader.ReadChar();
+                            }
+                            daReaing.Latitude = reader.ReadSingle();
+                            daReaing.Longitude = reader.ReadSingle();
+                            daReaing.RecordedTimeUTC = (ulong)reader.ReadInt64();
+
+                            daReaingList.Add(daReaing);
+
+                        }
+
+                    }
 
                 }
+                catch (Exception exception)
+                { 
+                
+                }
+                finally
+                { 
+                
+                
+                }
+
+                // When we are here we have 2 Million Points
+
 
             }
         }
