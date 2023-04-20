@@ -32,7 +32,7 @@ namespace MixTeleMatrix
                             (BaseArea.LatMax+BaseArea.LatMin)/2,
                             BaseArea.LatMax,
                             (BaseArea.LonMax+BaseArea.LonMin)/2 ,
-                            BaseArea.LonMax),                                         ) 
+                            BaseArea.LonMax),                                         
                 Vehicles = null,
                 ChildQuadItem = null
             };
@@ -54,50 +54,20 @@ namespace MixTeleMatrix
             // BOTTOM RIGHT
 
 
-                var QI = new QuadItem() {
-                    Quadrant =  new MixTeleMatrix.Rectangle(
-                                BaseArea.LatMin,
-                                (BaseArea.LatMax+BaseArea.LatMin)/2,
-                                (BaseArea.LonMax+BaseArea.LonMin)/2,
-                                BaseArea.LonMax
-                                ),
-                    Vehicles = null,
-                    ChildQuadItem = null
-                };
+            QI = new QuadItem() {
+                Quadrant =  new MixTeleMatrix.Rectangle(
+                            BaseArea.LatMin,
+                            (BaseArea.LatMax+BaseArea.LatMin)/2,
+                            (BaseArea.LonMax+BaseArea.LonMin)/2,
+                            BaseArea.LonMax
+                            ),
+                Vehicles = null,
+                ChildQuadItem = null
+            };
 
             SplitArea.Add(QI);
 
-
-            {
-            //_QuadLevel.Quadrants = new List<Rectangle>()
-            //{
-            //    new MixTeleMatrix.Rectangle(
-            //                                (BaseArea.LatMax+BaseArea.LatMin)/2,
-            //                                BaseArea.LatMax,
-            //                                BaseArea.LonMin,
-            //                                (BaseArea.LonMax+BaseArea.LonMin)/2
-            //                                ),
-            //    new MixTeleMatrix.Rectangle(
-            //                                (BaseArea.LatMax+BaseArea.LatMin)/2,
-            //                                BaseArea.LatMax,
-            //                                (BaseArea.LonMax+BaseArea.LonMin)/2 ,
-            //                                BaseArea.LonMax
-            //                                ) ,
-            //    new MixTeleMatrix.Rectangle(
-            //                                 BaseArea.LatMin,
-            //                                (BaseArea.LatMax+BaseArea.LatMin)/2,
-            //                                 BaseArea.LonMin ,
-            //                                (BaseArea.LonMax+BaseArea.LonMin)/2
-            //                                ) ,
-            //    new MixTeleMatrix.Rectangle(
-            //                                BaseArea.LatMin,
-            //                                (BaseArea.LatMax+BaseArea.LatMin)/2,
-            //                                (BaseArea.LonMax+BaseArea.LonMin)/2,
-            //                                BaseArea.LonMax
-            //                                )
-            //};
         }
-
 
         // This is the 4 Areas of the Parent Area
         public List<QuadItem> SplitArea { get; set; } = null;

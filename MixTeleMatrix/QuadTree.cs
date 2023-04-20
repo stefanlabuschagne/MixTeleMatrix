@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MixTeleMatrix;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -23,13 +24,22 @@ namespace MixTeleMatrix
         }
         public bool AddVehicle(Vehicle vehicle)
         {
-            // Traverse the tree to add the vehicle somewhere
-            Console.WriteLine("Hello World");
 
-            // Check if teh vehicle is in the baseArea
+            if (VehicleIsInBox(vehicle, _baseArea)) 
+            { 
+            
+                foreach (var Quadrant in _quadLevel.SplitArea) 
+                {
+                    if (VehicleIsInBox(vehicle, Quadrant.Quadrant))
+                    { 
+                        Quadrant.Vehicles.Add(vehicle);
+                        return true;
+                    }
 
-
-            // Decide in which Quadrat to Add the Vehicle
+                }
+            
+            }
+            return false;
 
         }
 
@@ -46,7 +56,7 @@ namespace MixTeleMatrix
         }
 
         // See if the vehicle is in the box
-        private bool VehicleIsInBox(Vehicle vehicle1, Rectangle Box)
+        private bool VehicleIsInBox(Vehicle vehicle1, MixTeleMatrix.Rectangle Box)
         { 
         
             if ( (vehicle1.Latitude <= Box.LatMax) 
@@ -61,7 +71,6 @@ namespace MixTeleMatrix
 
         // Contains the Split level and the vehicles
         private QuadCollection _quadLevel { get; set; } = null;
-
 
     }
 

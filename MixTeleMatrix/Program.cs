@@ -141,12 +141,10 @@ namespace MixTeleMatrix
                     }
                  };
 
-                foreach (var V in TestVehicles)
-                (
-                    Console.WriteLine(QT.GetNearsestVehicle(V))
-                )
-
-
+                //foreach (var V in TestVehicles)
+                //    (
+                //        // Console.WriteLine(QT.GetNearsestVehicle(V))
+                //    )
 
 
             }
