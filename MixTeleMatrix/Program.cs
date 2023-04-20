@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization.Formatters.Binary;
+﻿using System.Drawing;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Xml.Linq;
 
@@ -8,53 +9,7 @@ namespace MixTeleMatrix
     {
         static void Main(string[] args)
         {
-            //byte[] fileBytes = File.ReadAllBytes($"C:\\Users\\stefa\\downloads\\vehiclepositions_datafile\\VehiclePositions.dat");
-            //StringBuilder sb = new StringBuilder();
-
-            //foreach (byte b in fileBytes)
-            //{
-            //    sb.Append(Convert.ToString(b, 2).PadLeft(8, '0'));
-            //    // Console.WriteLine(sb.ToString());
-            //}
-
-            //File.WriteAllText("C:\\Users\\stefa\\downloads\\vehiclepositions_datafile\\DecentData", sb.ToString());
-
-            //string filePath = $"C:\\Users\\stefa\\downloads\\vehiclepositions_datafile\\VehiclePositions.dat";
-            //Encoding encoding = Encoding.UTF8; // or any other encoding you want to use
-            //int bufferSize = 1024 * 1024; // read the file in chunks of 1 MB
-
-            //using (var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
-            //using (var binaryReader = new BinaryReader(fileStream))
-            //{
-            //    var stringBuilder = new StringBuilder();
-            //    byte[] buffer;
-            //    do
-            //    {
-            //        buffer = binaryReader.ReadBytes(bufferSize);
-            //        stringBuilder.Append(encoding.GetString(buffer));
-            //    } while (buffer.Length == bufferSize);
-
-            //    string result = stringBuilder.ToString();
-            //    Console.WriteLine(result);
-            //}
-
-            // Open the file stream and create a BinaryFormatter instance
-            //using (FileStream fileStream = new FileStream($"C:\\Users\\stefa\\downloads\\vehiclepositions_datafile\\VehiclePositions.dat", FileMode.Open))
-            //{
-            //    BinaryFormatter formatter = new BinaryFormatter();
-
-            //    // Deserialize the binary data into a MyData object
-            //    Reading data = (Reading)formatter.Deserialize(fileStream);
-
-            //    // Use the deserialized data
-            //    Console.WriteLine($"Value1: {data.VehicleRegistration}");
-            //    Console.WriteLine($"Value2: {data.Latitude}");
-            //    Console.WriteLine($"Value2: {data.Longitude}");
-            //    Console.WriteLine($"=========================");
-            //}
-
-            var daReaingList = new List<Reading>();
-
+            var daVehicleList = new List<Vehicle>();
 
             using (var stream = File.Open($"C:\\Users\\stefa\\downloads\\vehiclepositions_datafile\\VehiclePositions.dat", FileMode.Open))
             {
@@ -67,20 +22,28 @@ namespace MixTeleMatrix
                         while (true)
                         {
 
-                            var daReaing = new Reading();
+                            var daVehicle = new Vehicle();
 
-                            daReaing.Positionid = reader.ReadInt32();
+                            daVehicle.Positionid = reader.ReadInt32();
                             char c = reader.ReadChar();
                             while (c != '\0')
                             {
-                                daReaing.VehicleRegistration = daReaing.VehicleRegistration + c;
+                                daVehicle.VehicleRegistration = daVehicle.VehicleRegistration + c;
                                 c = reader.ReadChar();
                             }
-                            daReaing.Latitude = reader.ReadSingle();
-                            daReaing.Longitude = reader.ReadSingle();
-                            daReaing.RecordedTimeUTC = (ulong)reader.ReadInt64();
+                            daVehicle.Latitude = reader.ReadSingle();
+                            daVehicle.Longitude = reader.ReadSingle();
+                            daVehicle.RecordedTimeUTC = (ulong)reader.ReadInt64();
 
-                            daReaingList.Add(daReaing);
+                            // Add The point Tothe Quad Tree
+
+                            Console.WriteLine(daVehicle.Latitude + ";" + daVehicle.Longitude + ";" + daVehicle.VehicleRegistration);
+
+
+                            // Add The point Tothe Quad Tree
+                            // Not a List Anymore
+
+                            daVehicleList.Add(daVehicle);
 
                         }
 
@@ -97,7 +60,63 @@ namespace MixTeleMatrix
                 
                 }
 
-                // When we are here we have 2 Million Points
+                // When we are here we have 2 Million Points!
+
+                // Calcutalethe Base Area
+                var sortedLatReadinglist = daVehicleList.OrderByDescending(p => p.Latitude);
+
+                var LatMax = sortedLatReadinglist.FirstOrDefault().Latitude;
+                var LatMin = sortedLatReadinglist.LastOrDefault().Latitude;
+
+                var sortedLongReadinglist = daVehicleList.OrderByDescending(p => p.Longitude);
+
+                var LonMax = sortedLongReadinglist.FirstOrDefault().Longitude;
+                var LonMin = sortedLongReadinglist.LastOrDefault().Longitude;
+
+                // Initalize the Quad Tree with the BaseArea
+                QuadTree QT = new QuadTree(
+                    new MixTeleMatrix.Rectangle(LatMin, LatMax, LonMin, LonMax)
+                    );
+
+                foreach (var v in sortedLatReadinglist)
+                {
+                    QT.AddVehicle(v);
+                }
+
+                 List<Vehicle> TestVehicles = new List<Vehicle>() 
+                 {
+                    new Vehicle()
+                    {   
+                        Positionid = 1,
+                        Latitude = (float)34.544909,
+                        Longitude = (float)-102.100843
+                    },
+                    new Vehicle()
+                    {
+                        Positionid = 2,
+                        Latitude = (float) 32.345544,
+                        Longitude = (float) -99.123124
+                    },
+                    new Vehicle()
+                    {
+                        Positionid = 3,
+                        Latitude = (float) 33.234235,
+                        Longitude = (float) -100.214124
+                    },
+                    new Vehicle()
+                    {
+                        Positionid = 4,
+                        Latitude = (float) 35.195739,
+                        Longitude = (float) -95.348899
+                    },
+                    new Vehicle()
+                    {
+                        Positionid = 5,
+                        Latitude = (float) 31.895839,
+                        Longitude = (float) -97.789573
+                    },
+
+                 };
 
 
             }
