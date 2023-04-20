@@ -12,34 +12,22 @@ namespace MixTeleMatrix
             var daVehicleList = Utils.LoadVehicleList();
             // When we are here we have 2 Million Points!
 
-            // Calcutalethe Base Area
-            var sortedLatReadinglist = daVehicleList.OrderByDescending(p => p.Latitude);
-
-            var LatMax = sortedLatReadinglist.FirstOrDefault().Latitude;
-            var LatMin = sortedLatReadinglist.LastOrDefault().Latitude;
-
-            var sortedLongReadinglist = daVehicleList.OrderByDescending(p => p.Longitude);
-
-            var LonMax = sortedLongReadinglist.FirstOrDefault().Longitude;
-            var LonMin = sortedLongReadinglist.LastOrDefault().Longitude;
 
             // Initalize the Quad Tree with the BaseArea
-            QuadTree QT = new QuadTree(
-                new MixTeleMatrix.Rectangle(LatMin, LatMax, LonMin, LonMax)
-                );
+            // Calculate Quadrants
+            // Load the vehicles into the Quadrants
+            QuadTree QT = new QuadTree(daVehicleList);
 
-                foreach (var v in sortedLatReadinglist)
-                {
-                    QT.AddVehicle(v);
-                }
+            List<Vehicle> TestVehicles = Utils.GetTestVehcles();
 
-                List<Vehicle> TestVehicles = Utils.GetTestVehcles();
+            // See if the test Vehicles are within the Range
+            //foreach (var TV in TestVehicles)
+            //{ 
+            //    Console.WriteLine(Utils.VehicleIsInBox(TV, new MixTeleMatrix.Rectangle(LatMin, LatMax, LonMin, LonMax)));
+            //}
 
-                // See if the test Vehicles are within the Range
-                foreach (var TV in TestVehicles)
-                { 
-                    Console.WriteLine(Utils.VehicleIsInBox(TV, new MixTeleMatrix.Rectangle(LatMin, LatMax, LonMin, LonMax)));
-                }
+            // Get the vehicle within the shortest distance from the TEST vehicle
+
 
         }
     }

@@ -13,16 +13,22 @@ namespace MixTeleMatrix
     {
         readonly Rectangle _baseArea;
 
-        public QuadTree(MixTeleMatrix.Rectangle BaseArea)
+        public QuadTree(List<Vehicle> daVehicleList)
         {
-            // Accept the Base Area
-            _baseArea = BaseArea;
+            // Calculate the Base Area
+            _baseArea = (Utils.CalculateAreaRectangle(daVehicleList));
 
             // Split the base area in 4 segments TL TR BL BR
-            _quadLevel = new QuadCollection(BaseArea);
+            _quadLevel = new QuadCollection(_baseArea);
+
+            // Add The Vehicles to the respective quadrants
+            foreach (var v in daVehicleList)
+            {
+                AddVehicle(v);
+            }
 
         }
-        public bool AddVehicle(Vehicle vehicle)
+        private bool AddVehicle(Vehicle vehicle)
         {
 
             if (Utils.VehicleIsInBox(vehicle, _baseArea)) 

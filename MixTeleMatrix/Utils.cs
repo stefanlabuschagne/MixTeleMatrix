@@ -9,6 +9,24 @@ namespace MixTeleMatrix
     public static class Utils
     {
 
+        public static MixTeleMatrix.Rectangle CalculateAreaRectangle(List<Vehicle> daVehicleList)
+        {
+
+            // Calcutalethe Base Area
+            var sortedLatReadinglist = daVehicleList.OrderByDescending(p => p.Latitude);
+
+            var LatMax = sortedLatReadinglist.FirstOrDefault().Latitude;
+            var LatMin = sortedLatReadinglist.LastOrDefault().Latitude;
+
+            var sortedLongReadinglist = daVehicleList.OrderByDescending(p => p.Longitude);
+
+            var LonMax = sortedLongReadinglist.FirstOrDefault().Longitude;
+            var LonMin = sortedLongReadinglist.LastOrDefault().Longitude;
+
+            return new MixTeleMatrix.Rectangle(LatMin, LatMax, LonMin, LonMax);
+
+        }
+
         // See if the vehicle is in the box
         public static bool VehicleIsInBox(Vehicle vehicle1, MixTeleMatrix.Rectangle Box)
         {
