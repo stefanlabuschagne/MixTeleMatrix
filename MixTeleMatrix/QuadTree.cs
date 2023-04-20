@@ -17,41 +17,17 @@ namespace MixTeleMatrix
             // Accept the Base Area
             _baseArea = BaseArea;
 
-            _QuadLevel = new QuadLevel();
+            // Split the base area in 4 segments TL TR BL BR
+            _quadLevel = new QuadCollection(BaseArea);
 
-            // Create 4 Quadrants (TL,TR, BL, BR)
-            _QuadLevel.Quadrants = new List<Rectangle>() 
-            { 
-                new MixTeleMatrix.Rectangle(
-                                            (BaseArea.LatMax+BaseArea.LatMin)/2,
-                                            BaseArea.LatMax,
-                                            BaseArea.LonMin,
-                                            (BaseArea.LonMax+BaseArea.LonMin)/2
-                                            ),
-                new MixTeleMatrix.Rectangle(
-                                            (BaseArea.LatMax+BaseArea.LatMin)/2,
-                                            BaseArea.LatMax,
-                                            (BaseArea.LonMax+BaseArea.LonMin)/2 ,
-                                            BaseArea.LonMax
-                                            ) ,
-                new MixTeleMatrix.Rectangle(
-                                             BaseArea.LatMin,
-                                            (BaseArea.LatMax+BaseArea.LatMin)/2,
-                                             BaseArea.LonMin ,
-                                            (BaseArea.LonMax+BaseArea.LonMin)/2
-                                            ) ,
-                new MixTeleMatrix.Rectangle(
-                                            BaseArea.LatMin,
-                                            (BaseArea.LatMax+BaseArea.LatMin)/2,
-                                            (BaseArea.LonMax+BaseArea.LonMin)/2,
-                                            BaseArea.LonMax
-                                            ) 
-            };
         }
-        public void AddVehicle(Vehicle vehicle)
+        public bool AddVehicle(Vehicle vehicle)
         {
             // Traverse the tree to add the vehicle somewhere
             Console.WriteLine("Hello World");
+
+            // Check if teh vehicle is in the baseArea
+
 
             // Decide in which Quadrat to Add the Vehicle
 
@@ -69,8 +45,22 @@ namespace MixTeleMatrix
             return 100;
         }
 
-        // Contains the Split level split and the vehicles
-        private QuadLevel _QuadLevel { get; set; } = null;
+        // See if the vehicle is in the box
+        private bool VehicleIsInBox(Vehicle vehicle1, Rectangle Box)
+        { 
+        
+            if ( (vehicle1.Latitude <= Box.LatMax) 
+                &&(vehicle1.Latitude >= Box.LatMin)
+                    && (vehicle1.Longitude <= Box.LonMax)
+                        && (vehicle1.Longitude >= Box.LonMin)) 
+            { return true; }
+
+            return false;
+
+        }
+
+        // Contains the Split level and the vehicles
+        private QuadCollection _quadLevel { get; set; } = null;
 
 
     }
