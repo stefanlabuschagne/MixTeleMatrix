@@ -35,13 +35,7 @@ namespace MixTeleMatrix
                             daVehicle.Longitude = reader.ReadSingle();
                             daVehicle.RecordedTimeUTC = (ulong)reader.ReadInt64();
 
-                            // Add The point Tothe Quad Tree
-
                             Console.WriteLine(daVehicle.Latitude + ";" + daVehicle.Longitude + ";" + daVehicle.VehicleRegistration);
-
-
-                            // Add The point Tothe Quad Tree
-                            // Not a List Anymore
 
                             daVehicleList.Add(daVehicle);
 
@@ -121,7 +115,7 @@ namespace MixTeleMatrix
                         Latitude = (float) 32.895839,
                         Longitude = (float) -101.789573
                     },
-                     new Vehicle()
+                    new Vehicle()
                      {
                          Positionid = 7,
                          Latitude = (float)34.115839,
@@ -146,6 +140,15 @@ namespace MixTeleMatrix
                         Longitude = (float) -100.222222
                     }
                  };
+
+                foreach (var V in TestVehicles)
+                (
+                    Console.WriteLine(QT.GetNearsestVehicle(V))
+                )
+
+
+
+
             }
         }
     }

@@ -14,10 +14,37 @@ namespace MixTeleMatrix
 
         public QuadTree(MixTeleMatrix.Rectangle BaseArea)
         {
+            // Accept the Base Area
             _baseArea = BaseArea;
 
-            // Create 4 Quadrants 
-
+            // Create 4 Quadrants (TL,TR, BL, BR)
+            Quadrants = new List<Rectangle>() 
+            { 
+                new MixTeleMatrix.Rectangle(
+                                            (BaseArea.LatMax+BaseArea.LatMin)/2,
+                                            BaseArea.LatMax,
+                                            BaseArea.LonMin,
+                                            (BaseArea.LonMax+BaseArea.LonMin)/2
+                                            ),
+                new MixTeleMatrix.Rectangle(
+                                            (BaseArea.LatMax+BaseArea.LatMin)/2,
+                                            BaseArea.LatMax,
+                                            (BaseArea.LonMax+BaseArea.LonMin)/2 ,
+                                            BaseArea.LonMax
+                                            ) ,
+                new MixTeleMatrix.Rectangle(
+                                             BaseArea.LatMin,
+                                            (BaseArea.LatMax+BaseArea.LatMin)/2,
+                                             BaseArea.LonMin ,
+                                            (BaseArea.LonMax+BaseArea.LonMin)/2
+                                            ) ,
+                new MixTeleMatrix.Rectangle(
+                                            BaseArea.LatMin,
+                                            (BaseArea.LatMax+BaseArea.LatMin)/2,
+                                            (BaseArea.LonMax+BaseArea.LonMin)/2,
+                                            BaseArea.LonMax
+                                            ) 
+            };
         }
         public void AddVehicle(Vehicle vehicle)
         {
