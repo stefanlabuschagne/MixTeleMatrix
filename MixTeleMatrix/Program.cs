@@ -35,18 +35,11 @@ namespace MixTeleMatrix
 
                 List<Vehicle> TestVehicles = Utils.GetTestVehcles();
 
-                // See if the test items are within the Range
+                // See if the test Vehicles are within the Range
                 foreach (var TV in TestVehicles)
                 { 
                     Console.WriteLine(Utils.VehicleIsInBox(TV, new MixTeleMatrix.Rectangle(LatMin, LatMax, LonMin, LonMax)));
                 }
-
-                //foreach (var V in TestVehicles)
-                //    (
-                //        // Console.WriteLine(QT.GetNearsestVehicle(V))
-                //    )
-
-
 
         }
     }
