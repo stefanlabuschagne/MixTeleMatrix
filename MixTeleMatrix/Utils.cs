@@ -9,6 +9,20 @@ namespace MixTeleMatrix
     public static class Utils
     {
 
+        public static double CalculateDistance(Vehicle vehicle1, Vehicle vehicle2)
+        {
+            // Calculate the Distance
+            var horDistance = Math.Abs(vehicle1.Longitude - vehicle2.Longitude);
+            var verDistance = Math.Abs(vehicle1.Latitude - vehicle2.Latitude);
+
+            var directDistance = (Math.Sqrt(
+                                            (Math.Pow(horDistance, 2)) +
+                                            (Math.Pow(verDistance, 2))
+                                            ));
+
+            return (directDistance);
+        }
+
         public static MixTeleMatrix.Rectangle CalculateAreaRectangle(List<Vehicle> daVehicleList)
         {
 

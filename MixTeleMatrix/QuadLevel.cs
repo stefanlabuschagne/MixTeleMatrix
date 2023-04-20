@@ -79,8 +79,6 @@ namespace MixTeleMatrix
     public class QuadItem
     {
 
-
-
         public Rectangle Quadrant { get; set; }
 
         public List<Vehicle> Vehicles { get; set; } = new List<Vehicle>();  // Can be null if you have a Leaves (Quadrants)
