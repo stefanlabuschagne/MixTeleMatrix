@@ -58,7 +58,6 @@ namespace MixTeleMatrix
             return (Math.Sqrt((Math.Pow(horDistance, 2) + Math.Pow(verDistance, 2))));
         }
 
-
         // Contains the Split level and the vehicles
         private QuadCollection _quadLevel { get; set; } = null;
 
