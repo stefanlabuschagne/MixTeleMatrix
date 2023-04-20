@@ -17,8 +17,10 @@ namespace MixTeleMatrix
             // Accept the Base Area
             _baseArea = BaseArea;
 
+            _QuadLevel = new QuadLevel();
+
             // Create 4 Quadrants (TL,TR, BL, BR)
-            Quadrants = new List<Rectangle>() 
+            _QuadLevel.Quadrants = new List<Rectangle>() 
             { 
                 new MixTeleMatrix.Rectangle(
                                             (BaseArea.LatMax+BaseArea.LatMin)/2,
@@ -67,10 +69,9 @@ namespace MixTeleMatrix
             return 100;
         }
 
+        // Contains the Split level split and the vehicles
+        private QuadLevel _QuadLevel { get; set; } = null;
 
-        public List<Rectangle> Quadrants { get; set; } = null;
-
-        public List<Vehicle> Vehicles { get; set; } = null; // Can be null if you have a Leaves (Quadrants)
 
     }
 
