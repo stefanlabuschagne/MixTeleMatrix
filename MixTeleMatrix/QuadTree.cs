@@ -50,13 +50,14 @@ namespace MixTeleMatrix
             return new Vehicle() { };
         }
 
-        private int calculateDistance(Vehicle vehicle1, Vehicle vehicle2)
+        private double CalculateDistance(Vehicle vehicle1, Vehicle vehicle2)
         {
             // Calculate the Distance
-            return 100;
+            var horDistance = Math.Abs(vehicle1.Longitude - vehicle2.Longitude);
+            var verDistance = Math.Abs(vehicle1.Latitude - vehicle2.Latitude);
+            return (Math.Sqrt((Math.Pow(horDistance, 2) + Math.Pow(verDistance, 2))));
         }
 
-        
 
         // Contains the Split level and the vehicles
         private QuadCollection _quadLevel { get; set; } = null;
