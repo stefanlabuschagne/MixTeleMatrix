@@ -35,7 +35,7 @@ namespace MixTeleMatrix
                             daVehicle.Longitude = reader.ReadSingle();
                             daVehicle.RecordedTimeUTC = (ulong)reader.ReadInt64();
 
-                            Console.WriteLine(daVehicle.Latitude + ";" + daVehicle.Longitude + ";" + daVehicle.VehicleRegistration);
+                            // Console.WriteLine(daVehicle.Latitude + ";" + daVehicle.Longitude + ";" + daVehicle.VehicleRegistration);
 
                             daVehicleList.Add(daVehicle);
 
@@ -140,6 +140,15 @@ namespace MixTeleMatrix
                         Longitude = (float) -100.222222
                     }
                  };
+
+
+
+                foreach (var TV in TestVehicles)
+                { 
+                    Console.WriteLine(Utils.VehicleIsInBox(TV, new MixTeleMatrix.Rectangle(LatMin, LatMax, LonMin, LonMax)));
+                }
+
+
 
                 //foreach (var V in TestVehicles)
                 //    (

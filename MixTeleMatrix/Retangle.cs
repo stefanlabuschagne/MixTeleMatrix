@@ -10,13 +10,13 @@ namespace MixTeleMatrix
     public class Rectangle
     {
 
-        public Rectangle(float LatMin, float LatMax, float LonMin, float LonMax) 
+        public Rectangle(float latMin, float latMax, float lonMin, float lonMax) 
         {
-            LatMin = LatMin;
-            LatMax = LatMax;
+            LatMin = latMin;
+            LatMax = latMax;
 
-            LonMin = LonMin;
-            LonMax = LonMax;
+            LonMin = lonMin;
+            LonMax = lonMax;
 
         }
 

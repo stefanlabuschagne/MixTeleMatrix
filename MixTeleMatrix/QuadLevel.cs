@@ -11,7 +11,7 @@ namespace MixTeleMatrix
     {
         public QuadCollection(Rectangle BaseArea)
             {    
-            var SplitArea = new List<QuadItem>();
+            var SA = new List<QuadItem>();
             // TOP LEFT
             var QI = new QuadItem() {
                 Quadrant = new MixTeleMatrix.Rectangle(
@@ -24,7 +24,7 @@ namespace MixTeleMatrix
                 ChildQuadItem = null 
             }; 
 
-            SplitArea.Add(QI);
+            SA.Add(QI);
 
             // TOP RIGHT
             QI = new QuadItem() {
@@ -37,7 +37,7 @@ namespace MixTeleMatrix
                 ChildQuadItem = null
             };
 
-            SplitArea.Add(QI);
+            SA.Add(QI);
 
             // BOTTOM LEFT
             QI = new QuadItem() {
@@ -50,7 +50,7 @@ namespace MixTeleMatrix
                 ChildQuadItem = null
             };
 
-            SplitArea.Add(QI);
+            SA.Add(QI);
             // BOTTOM RIGHT
 
 
@@ -65,23 +65,27 @@ namespace MixTeleMatrix
                 ChildQuadItem = null
             };
 
-            SplitArea.Add(QI);
+            SA.Add(QI);
+
+            SplitArea = new List<QuadItem>();
+            SplitArea.AddRange(SA);
 
         }
 
         // This is the 4 Areas of the Parent Area
-        public List<QuadItem> SplitArea { get; set; } = null;
-
+        public List<QuadItem> SplitArea { get; set; }
     }
 
     public class QuadItem
     {
 
-        public Rectangle Quadrant { get; set; } = null;
 
-        public List<Vehicle> Vehicles { get; set; } = null; // Can be null if you have a Leaves (Quadrants)
 
-        public QuadCollection ChildQuadItem { get; set; } = null;
+        public Rectangle Quadrant { get; set; }
+
+        public List<Vehicle> Vehicles { get; set; } = new List<Vehicle>();  // Can be null if you have a Leaves (Quadrants)
+
+        public QuadCollection ChildQuadItem { get; set; } 
 
     }
 

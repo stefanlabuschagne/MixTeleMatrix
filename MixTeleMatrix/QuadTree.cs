@@ -25,13 +25,14 @@ namespace MixTeleMatrix
         public bool AddVehicle(Vehicle vehicle)
         {
 
-            if (VehicleIsInBox(vehicle, _baseArea)) 
+            if (Utils.VehicleIsInBox(vehicle, _baseArea)) 
             { 
             
                 foreach (var Quadrant in _quadLevel.SplitArea) 
                 {
-                    if (VehicleIsInBox(vehicle, Quadrant.Quadrant))
-                    { 
+                    if (Utils.VehicleIsInBox(vehicle, Quadrant.Quadrant))
+                    {
+                        if (Quadrant.Vehicles == null) { Quadrant.Vehicles = new List<Vehicle>(); }
                         Quadrant.Vehicles.Add(vehicle);
                         return true;
                     }
@@ -55,19 +56,7 @@ namespace MixTeleMatrix
             return 100;
         }
 
-        // See if the vehicle is in the box
-        private bool VehicleIsInBox(Vehicle vehicle1, MixTeleMatrix.Rectangle Box)
-        { 
         
-            if ( (vehicle1.Latitude <= Box.LatMax) 
-                &&(vehicle1.Latitude >= Box.LatMin)
-                    && (vehicle1.Longitude <= Box.LonMax)
-                        && (vehicle1.Longitude >= Box.LonMin)) 
-            { return true; }
-
-            return false;
-
-        }
 
         // Contains the Split level and the vehicles
         private QuadCollection _quadLevel { get; set; } = null;
