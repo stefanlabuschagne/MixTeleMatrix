@@ -126,11 +126,12 @@ namespace MixTeleMatrix
             return TestVehicleList;
         }
 
-       public static List<Vehicle> LoadVehicleList()
+       public static List<Vehicle> LoadVehicleList(string Filename)
         {
             var daVehicleList = new List<Vehicle>();
+            StringBuilder VehicleRegistration = new StringBuilder();
 
-            using (var stream = File.Open($"C:\\Users\\stefa\\downloads\\vehiclepositions_datafile\\VehiclePositions.dat", FileMode.Open))
+            using (var stream = File.Open(Filename, FileMode.Open))
             {
                 try
                 {
@@ -143,13 +144,14 @@ namespace MixTeleMatrix
                             var InputVehicle = new Vehicle();
 
                             InputVehicle.Positionid = reader.ReadInt32();
-                            InputVehicle.VehicleRegistration = "";
                             char c = reader.ReadChar();
                             while (c != '\0')
                             {
-                                InputVehicle.VehicleRegistration = InputVehicle.VehicleRegistration + c;
+                                VehicleRegistration.Append(c);
                                 c = reader.ReadChar();
                             }
+                            InputVehicle.VehicleRegistration = VehicleRegistration.ToString();
+                            VehicleRegistration.Clear();
                             InputVehicle.Latitude = reader.ReadSingle();
                             InputVehicle.Longitude = reader.ReadSingle();
                             InputVehicle.RecordedTimeUTC = (ulong)reader.ReadInt64();
