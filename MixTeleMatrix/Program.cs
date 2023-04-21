@@ -29,7 +29,7 @@ namespace MixTeleMatrix
             // 1 - Initalize the Quad Tree with the BaseArea
             // 2-  Calculate Quadrants according to the Grid-Dimension-Parameter (# of rows and cols)
             // 3 - Load the vehicles into the created Quadrants
-            int GridDimensionParameter = 2;
+            int GridDimensionParameter = 8;
             QuadTree QuadTreeStructure = new QuadTree(AllVehicleList,GridDimensionParameter);
 
          /*
@@ -43,6 +43,7 @@ namespace MixTeleMatrix
             Stopwatch.Stop();
             Console.WriteLine ( $"{Stopwatch.ElapsedMilliseconds} milliseconds to lookup" , (Stopwatch.ElapsedMilliseconds));
 
+            Console.ReadLine ();
         }
 
     }
