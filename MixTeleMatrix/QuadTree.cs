@@ -13,10 +13,10 @@ namespace MixTeleMatrix
     {
         readonly Rectangle _baseArea;
 
-        public QuadTree(List<Vehicle> daVehicleList, int gridDimension)
+        public QuadTree(List<Vehicle> vehicleList, int gridDimension)
         {
             // Calculate the Base Area
-            _baseArea = (Utils.CalculateAreaRectangle(daVehicleList));
+            _baseArea = (Utils.CalculateAreaRectangle(vehicleList));
 
             // Split the base area in even Grid QUADRANTS (even amounts of Rows and Colums)
             // This can be increased if we want more quadrants (for a faster lookup time)
@@ -25,7 +25,7 @@ namespace MixTeleMatrix
             _quadLevel = new QuadCollection(_baseArea, gridDimension);
 
             // Add The Vehicles to the respective Quadrants
-            AddVehiclesToQuadrants(daVehicleList);
+            AddVehiclesToQuadrants(vehicleList);
         }
 
         public void SanityCheckForTestVehicles(List<Vehicle> testVehicles)
