@@ -42,7 +42,7 @@ namespace MixTeleMatrix
         }
 
         // See if the vehicle is in the box
-        public static bool VehicleIsInRectangle(Vehicle vehicle1, MixTeleMatrix.Rectangle Box)
+        public static bool VehicleIsInArea(Vehicle vehicle1, MixTeleMatrix.Rectangle Box)
         {
 
             if ((vehicle1.Latitude <= Box.LatMax)
@@ -126,14 +126,12 @@ namespace MixTeleMatrix
             return TestVehicleList;
         }
 
-
        public static List<Vehicle> LoadVehicleList()
         {
             var daVehicleList = new List<Vehicle>();
 
             using (var stream = File.Open($"C:\\Users\\stefa\\downloads\\vehiclepositions_datafile\\VehiclePositions.dat", FileMode.Open))
             {
-
                 try
                 {
 
@@ -142,22 +140,23 @@ namespace MixTeleMatrix
                         while (true)
                         {
 
-                            var daVehicle = new Vehicle();
+                            var InputVehicle = new Vehicle();
 
-                            daVehicle.Positionid = reader.ReadInt32();
+                            InputVehicle.Positionid = reader.ReadInt32();
+                            InputVehicle.VehicleRegistration = "";
                             char c = reader.ReadChar();
                             while (c != '\0')
                             {
-                                daVehicle.VehicleRegistration = daVehicle.VehicleRegistration + c;
+                                InputVehicle.VehicleRegistration = InputVehicle.VehicleRegistration + c;
                                 c = reader.ReadChar();
                             }
-                            daVehicle.Latitude = reader.ReadSingle();
-                            daVehicle.Longitude = reader.ReadSingle();
-                            daVehicle.RecordedTimeUTC = (ulong)reader.ReadInt64();
+                            InputVehicle.Latitude = reader.ReadSingle();
+                            InputVehicle.Longitude = reader.ReadSingle();
+                            InputVehicle.RecordedTimeUTC = (ulong)reader.ReadInt64();
 
                             // Console.WriteLine(daVehicle.Latitude + ";" + daVehicle.Longitude + ";" + daVehicle.VehicleRegistration);
 
-                            daVehicleList.Add(daVehicle);
+                            daVehicleList.Add(InputVehicle);
 
                         }
 

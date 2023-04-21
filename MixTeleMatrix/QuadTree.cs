@@ -19,6 +19,7 @@ namespace MixTeleMatrix
             _baseArea = (Utils.CalculateAreaRectangle(daVehicleList));
 
             // Split the base area in 4 segments TL TR BL BR
+            // This can be increased to 16 ,64 etc - if we want a faster lookup time 
             _quadLevel = new QuadCollection(_baseArea);
 
             // Add The Vehicles to the respective quadrants
@@ -37,7 +38,7 @@ namespace MixTeleMatrix
                 Console.WriteLine("Vehicle;");
                 Console.WriteLine(v.Latitude + " x " + v.Longitude);
 
-                if (Utils.VehicleIsInRectangle(v, _baseArea))
+                if (Utils.VehicleIsInArea(v, _baseArea))
                 {
 
                 }
@@ -49,23 +50,23 @@ namespace MixTeleMatrix
 
         }
 
-        private void AddVehicleToQuadrants(List<Vehicle> daVehicleList)
+        private void AddVehicleToQuadrants(List<Vehicle> VehicleList)
         {
-            foreach (var v in daVehicleList)
+            foreach (var Vehicle in VehicleList)
             {
-                AddVehicle(v);
+                AddVehicle(Vehicle);
             }
         }
 
         private bool AddVehicle(Vehicle vehicle)
         {
 
-            if (Utils.VehicleIsInRectangle(vehicle, _baseArea))
+            if (Utils.VehicleIsInArea(vehicle, _baseArea))
             {
 
                 foreach (var Quadrant in _quadLevel.SplitArea)
                 {
-                    if (Utils.VehicleIsInRectangle(vehicle, Quadrant.Quadrant))
+                    if (Utils.VehicleIsInArea(vehicle, Quadrant.Quadrant))
                     {
                         if (Quadrant.Vehicles == null) { Quadrant.Vehicles = new List<Vehicle>(); }
                         Quadrant.Vehicles.Add(vehicle);
@@ -102,7 +103,7 @@ namespace MixTeleMatrix
 
             foreach (var QuadrantArea in _quadLevel.SplitArea)
             {
-                if (Utils.VehicleIsInRectangle(vehicle, QuadrantArea.Quadrant))
+                if (Utils.VehicleIsInArea(vehicle, QuadrantArea.Quadrant))
                 {
 
                     //Console.WriteLine("Vehicle in quadrant - Entering Quadrant");
@@ -154,17 +155,8 @@ namespace MixTeleMatrix
             }
 
             // Sanity Check for other quadrants
-
             return (ReturnVehicle);
 
-            // Iterate through the Quad Collection
-            // Get the right quadrannt
-            // Compare all vehicles in the quadrant with passed vehicle
-
-            // Check if you need to check other quadrants as well.....
-
-
-            return new Vehicle() { };
         }
 
         // Contains the Split level and the vehicles

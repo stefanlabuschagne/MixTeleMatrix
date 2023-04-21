@@ -12,6 +12,7 @@ namespace MixTeleMatrix
     {
         static void Main(string[] args)
         {
+
             // Load Data
             var AllVehicleList = Utils.LoadVehicleList();
 
@@ -21,17 +22,20 @@ namespace MixTeleMatrix
             QuadTree QuadTreeStructure = new QuadTree(AllVehicleList);
 
             // Get test Vehicles
-            List<Vehicle> TestVehicles = Utils.GetTestVehcles();
+            var TestVehicles = Utils.GetTestVehcles();
 
             // QT.SanityCheckForTestVehicles(TestVehicles);
 
             var Stopwatch = new Stopwatch();
             Stopwatch.Reset();
             Stopwatch.Start();
-            // Return the closest vehicle to each of the 10 TEST vehicles
+
+            // Return the closest vehicle to each of the TEST vehicles
             QuadTreeStructure.FindNearestVehicle(TestVehicles);
+
             Stopwatch.Stop();
             Console.WriteLine ( $"{Stopwatch.ElapsedMilliseconds} milliseconds to complete" , (Stopwatch.ElapsedMilliseconds));
+
         }
 
     }

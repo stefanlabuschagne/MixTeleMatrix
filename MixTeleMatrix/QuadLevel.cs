@@ -11,6 +11,10 @@ namespace MixTeleMatrix
     {
         public QuadCollection(Rectangle BaseArea)
             {    
+
+            // Splits The Passed Area into 4 Smaller Quadrants
+
+
             var SA = new List<QuadItem>();
             // TOP LEFT
             var QI = new QuadItem() {
