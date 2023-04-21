@@ -37,11 +37,14 @@ namespace MixTeleMatrix
             // QT.SanityCheckForTestVehicles(TestVehicles);
 
 
+            Stopwatch = new Stopwatch();
+            Stopwatch.Reset();
+            Stopwatch.Start();
             // Return the closest vehicle to each of the TEST vehicles
             QuadTreeStructure.FindNearestVehicle(TestVehicles);
 
             Stopwatch.Stop();
-            Console.WriteLine ( $"{Stopwatch.ElapsedMilliseconds} milliseconds to complete" , (Stopwatch.ElapsedMilliseconds));
+            Console.WriteLine ( $"{Stopwatch.ElapsedMilliseconds} milliseconds to lookup" , (Stopwatch.ElapsedMilliseconds));
 
         }
 

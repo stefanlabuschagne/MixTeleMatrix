@@ -9,15 +9,65 @@ namespace MixTeleMatrix
 {
     public class QuadCollection
     {
-        public QuadCollection(Rectangle BaseArea)
-            {    
+        // Splits The Passed Area into Smaller Quadrants
+        // As specified by the gridDimensions
+        // The more quadrants the quicker the lookup time
+        public QuadCollection(Rectangle BaseArea, int gridDimensions)
+            {
+
+            var SA = new List<QuadItem>();
+
+            float ColIncrement = (BaseArea.LatMax - BaseArea.LatMin)/ gridDimensions;
+            float RowIncrement = (BaseArea.LonMax - BaseArea.LonMin)/ gridDimensions;
+
+            SplitAreas = new List<QuadItem>();
+
+            float R = BaseArea.LonMin; // LONGITUDES  
+            for (var Row = 1; Row <= gridDimensions; Row++)
+            {
+
+                float C = BaseArea.LatMin; // LATITUDES 
+                for (var Col = 1; Col <= gridDimensions; Col++)
+                {
+
+                    Console.WriteLine($"{C} {C+ColIncrement} {R} {R+RowIncrement}");
+
+                    SplitAreas.Add(
+                        new QuadItem()
+                        {
+                            // mlatmin latmax, lonmin, lonmax
+                            Quadrant = new MixTeleMatrix.Rectangle(C,
+                                                                C + ColIncrement,
+                                                                R,
+                                                                R + RowIncrement),
+                            Vehicles = null,
+                            ChildQuadItem = null
+                        });
+
+                    C = C + ColIncrement;
+
+                }
+
+                Console.WriteLine($"");
+
+                R = R + RowIncrement;
+
+            }
+
+            SplitAreas.AddRange(SA);
+
+        }
+
+        public void  QuadCollectionStatic(Rectangle BaseArea, int rowNumbers)
+        {
 
             // Splits The Passed Area into 4 Smaller Quadrants
 
 
             var SA = new List<QuadItem>();
             // TOP LEFT
-            var QI = new QuadItem() {
+            var QI = new QuadItem()
+            {
                 Quadrant = new MixTeleMatrix.Rectangle(
                             (BaseArea.LatMax + BaseArea.LatMin) / 2,
                             BaseArea.LatMax,
@@ -25,18 +75,19 @@ namespace MixTeleMatrix
                             (BaseArea.LonMax + BaseArea.LonMin) / 2
                             ),
                 Vehicles = null,
-                ChildQuadItem = null 
-            }; 
+                ChildQuadItem = null
+            };
 
             SA.Add(QI);
 
             // TOP RIGHT
-            QI = new QuadItem() {
-                Quadrant =new MixTeleMatrix.Rectangle(
-                            (BaseArea.LatMax+BaseArea.LatMin)/2,
+            QI = new QuadItem()
+            {
+                Quadrant = new MixTeleMatrix.Rectangle(
+                            (BaseArea.LatMax + BaseArea.LatMin) / 2,
                             BaseArea.LatMax,
-                            (BaseArea.LonMax+BaseArea.LonMin)/2 ,
-                            BaseArea.LonMax),                                         
+                            (BaseArea.LonMax + BaseArea.LonMin) / 2,
+                            BaseArea.LonMax),
                 Vehicles = null,
                 ChildQuadItem = null
             };
@@ -44,8 +95,9 @@ namespace MixTeleMatrix
             SA.Add(QI);
 
             // BOTTOM LEFT
-            QI = new QuadItem() {
-                Quadrant =  new MixTeleMatrix.Rectangle(
+            QI = new QuadItem()
+            {
+                Quadrant = new MixTeleMatrix.Rectangle(
                             BaseArea.LatMin,
                             (BaseArea.LatMax + BaseArea.LatMin) / 2,
                             BaseArea.LonMin,
@@ -58,11 +110,12 @@ namespace MixTeleMatrix
             // BOTTOM RIGHT
 
 
-            QI = new QuadItem() {
-                Quadrant =  new MixTeleMatrix.Rectangle(
+            QI = new QuadItem()
+            {
+                Quadrant = new MixTeleMatrix.Rectangle(
                             BaseArea.LatMin,
-                            (BaseArea.LatMax+BaseArea.LatMin)/2,
-                            (BaseArea.LonMax+BaseArea.LonMin)/2,
+                            (BaseArea.LatMax + BaseArea.LatMin) / 2,
+                            (BaseArea.LonMax + BaseArea.LonMin) / 2,
                             BaseArea.LonMax
                             ),
                 Vehicles = null,
@@ -87,7 +140,7 @@ namespace MixTeleMatrix
 
         public List<Vehicle> Vehicles { get; set; } = new List<Vehicle>();  // Can be null if you have a Leaves (Quadrants)
 
-        public QuadCollection ChildQuadItem { get; set; } 
+        public QuadCollection ChildQuadItem { get; set; }  // OBSOLETE WITH THIS SOLUTION
 
     }
 

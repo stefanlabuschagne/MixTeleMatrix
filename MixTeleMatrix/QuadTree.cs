@@ -18,13 +18,14 @@ namespace MixTeleMatrix
             // Calculate the Base Area
             _baseArea = (Utils.CalculateAreaRectangle(daVehicleList));
 
-            // Split the base area in 4 segments TL TR BL BR
-            // This can be increased to 16 ,64 etc - if we want a faster lookup time 
-            _quadLevel = new QuadCollection(_baseArea);
+            // Split the base area in even Grid QUADRANTS (even amounts of rows and Colums)
+            // This can be increased if we want more quadrants (for a faster lookup time)
+            // but the preparation time is more, having more quadrants to 
+            // For more Test Vehicles
+            _quadLevel = new QuadCollection(_baseArea,16);
 
-            // Add The Vehicles to the respective quadrants
+            // Add The Vehicles to the respective Quadrants
             AddVehicleToQuadrants(daVehicleList);
-
         }
 
         public void SanityCheckForTestVehicles(List<Vehicle> testVehicles)
@@ -44,7 +45,7 @@ namespace MixTeleMatrix
                 }
                 else
                 {
-                    Console.WriteLine("Vehicle Out of Bounds!");
+                    Console.WriteLine("Test Vehicle Out of Bounds!");
                 }
             }
 
