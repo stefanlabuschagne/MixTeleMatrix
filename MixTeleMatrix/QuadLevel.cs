@@ -15,8 +15,6 @@ namespace MixTeleMatrix
         public QuadCollection(Rectangle BaseArea, int gridDimensions)
             {
 
-            var SA = new List<QuadItem>();
-
             float ColIncrement = (BaseArea.LatMax - BaseArea.LatMin)/ gridDimensions;
             float RowIncrement = (BaseArea.LonMax - BaseArea.LonMin)/ gridDimensions;
 
@@ -54,8 +52,6 @@ namespace MixTeleMatrix
 
             }
 
-            SplitAreas.AddRange(SA);
-
         }
 
         // This is the 4 Areas of the Parent Area
@@ -72,6 +68,5 @@ namespace MixTeleMatrix
         public QuadCollection ChildQuadItem { get; set; }  // OBSOLETE WITH THIS SOLUTION
 
     }
-
 
 }
