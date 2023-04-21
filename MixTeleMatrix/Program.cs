@@ -12,38 +12,37 @@ namespace MixTeleMatrix
     {
         static void Main(string[] args)
         {
+            // IMPORTANT PARAMETERS!!
+            string DatFileLocation = $"C:\\Users\\stefa\\downloads\\vehiclepositions_datafile\\VehiclePositions.dat";
+            int GridDimensionParameter = 8;
 
             var Stopwatch = new Stopwatch();
             Stopwatch.Reset();
             Stopwatch.Start();
+            Console.WriteLine($"{Stopwatch.ElapsedMilliseconds} milliseconds - Starting.");
 
             // Load Data
-            var AllVehicleList = Utils.LoadVehicleList($"C:\\Users\\stefa\\downloads\\vehiclepositions_datafile\\VehiclePositions.dat");
+            var AllVehicleList = Utils.LoadVehicleList(DatFileLocation);
             
-            // Get Test Vehicles
+            // Load Test Vehicles
             var TestVehicles = Utils.GetTestVehcles();
 
-            //Stopwatch.Stop();
-            //Console.WriteLine($"{Stopwatch.ElapsedMilliseconds} milliseconds to load", (Stopwatch.ElapsedMilliseconds));
+            Console.WriteLine($"{Stopwatch.ElapsedMilliseconds} miliseconds - Loadng Source Data Done.");
 
             // 1 - Initalize the Quad Tree with the BaseArea
             // 2-  Calculate Quadrants according to the Grid-Dimension-Parameter (# of rows and cols)
             // 3 - Load the vehicles into the created Quadrants
-            int GridDimensionParameter = 8;
             QuadTree QuadTreeStructure = new QuadTree(AllVehicleList,GridDimensionParameter);
 
-         /*
-            Stopwatch = new Stopwatch();
-            Stopwatch.Reset();
-            Stopwatch.Start();
-         */
+            Console.WriteLine($"{Stopwatch.ElapsedMilliseconds} miliseconds - Populating Grid {GridDimensionParameter} X {GridDimensionParameter} Done.");
+
             // Return the closest vehicle to each of the TEST vehicles
             QuadTreeStructure.FindNearestVehicle(TestVehicles);
 
             Stopwatch.Stop();
-            Console.WriteLine ( $"{Stopwatch.ElapsedMilliseconds} milliseconds to LOAD DATA and LOOKUP" , (Stopwatch.ElapsedMilliseconds));
-
+            Console.WriteLine ( $"{Stopwatch.ElapsedMilliseconds} millisecnds - Calculated nearest vehicles Done." , (Stopwatch.ElapsedMilliseconds));
             Console.ReadLine ();
+
         }
 
     }
