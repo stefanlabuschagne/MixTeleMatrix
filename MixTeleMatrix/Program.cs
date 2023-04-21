@@ -41,7 +41,7 @@ namespace MixTeleMatrix
             QuadTreeStructure.FindNearestVehicle(TestVehicles);
 
             Stopwatch.Stop();
-            Console.WriteLine ( $"{Stopwatch.ElapsedMilliseconds} milliseconds to lookup" , (Stopwatch.ElapsedMilliseconds));
+            Console.WriteLine ( $"{Stopwatch.ElapsedMilliseconds} milliseconds to LOAD DATA and LOOKUP" , (Stopwatch.ElapsedMilliseconds));
 
             Console.ReadLine ();
         }
