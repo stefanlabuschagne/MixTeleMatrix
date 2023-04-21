@@ -89,8 +89,7 @@ namespace MixTeleMatrix
                 var ClosestVehicle = GetNearestVehicle(CurrentTestVehicle);
 
                 Console.WriteLine("Found Vehicle:          Lat: " + ClosestVehicle.Latitude + " Long: " + ClosestVehicle.Longitude);
-                Console.WriteLine(ClosestVehicle.VehicleRegistration);
-                // Console.WriteLine("Distance: "+ Utils.CalculateDistance(CurrentTestVehicle,ClosestVehicle));
+                //Console.WriteLine(ClosestVehicle.VehicleRegistration);
                 Console.WriteLine("");
             }
         }

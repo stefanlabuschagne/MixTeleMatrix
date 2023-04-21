@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Xml.Linq;
+using System.Diagnostics;
 
 namespace MixTeleMatrix
 {
@@ -23,8 +25,13 @@ namespace MixTeleMatrix
 
             // QT.SanityCheckForTestVehicles(TestVehicles);
 
+            var Stopwatch = new Stopwatch();
+            Stopwatch.Reset();
+            Stopwatch.Start();
             // Return the closest vehicle to each of the 10 TEST vehicles
             QuadTreeStructure.FindNearestVehicle(TestVehicles);
+            Stopwatch.Stop();
+            Console.WriteLine ( $"{Stopwatch.ElapsedMilliseconds} milliseconds to complete" , (Stopwatch.ElapsedMilliseconds));
         }
 
     }
