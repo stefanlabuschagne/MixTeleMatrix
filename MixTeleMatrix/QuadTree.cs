@@ -37,7 +37,7 @@ namespace MixTeleMatrix
                 Console.WriteLine("Vehicle;");
                 Console.WriteLine(v.Latitude + " x " + v.Longitude);
 
-                if (Utils.VehicleIsInBox(v, _baseArea))
+                if (Utils.VehicleIsInRectangle(v, _baseArea))
                 {
 
                 }
@@ -60,12 +60,12 @@ namespace MixTeleMatrix
         private bool AddVehicle(Vehicle vehicle)
         {
 
-            if (Utils.VehicleIsInBox(vehicle, _baseArea))
+            if (Utils.VehicleIsInRectangle(vehicle, _baseArea))
             {
 
                 foreach (var Quadrant in _quadLevel.SplitArea)
                 {
-                    if (Utils.VehicleIsInBox(vehicle, Quadrant.Quadrant))
+                    if (Utils.VehicleIsInRectangle(vehicle, Quadrant.Quadrant))
                     {
                         if (Quadrant.Vehicles == null) { Quadrant.Vehicles = new List<Vehicle>(); }
                         Quadrant.Vehicles.Add(vehicle);
@@ -103,7 +103,7 @@ namespace MixTeleMatrix
 
             foreach (var QuadrantArea in _quadLevel.SplitArea)
             {
-                if (Utils.VehicleIsInBox(vehicle, QuadrantArea.Quadrant))
+                if (Utils.VehicleIsInRectangle(vehicle, QuadrantArea.Quadrant))
                 {
 
                     //Console.WriteLine("Vehicle in quadrant - Entering Quadrant");
@@ -120,6 +120,27 @@ namespace MixTeleMatrix
                             //Console.WriteLine("Found Vehicle");
                         }
                     }
+
+                    // Do we need to check adjacent Quadrants
+                    // For closer vehicles??
+                    var TopDistance = (QuadrantArea.Quadrant.LatMax - ReturnVehicle.Latitude);
+                    var BotDistance = (ReturnVehicle.Latitude - QuadrantArea.Quadrant.LatMin);
+
+                    var LeftDistance = (ReturnVehicle.Longitude - QuadrantArea.Quadrant.LonMin);
+                    var RightDistance = (QuadrantArea.Quadrant.LonMax - ReturnVehicle.Longitude);
+
+                    // Any of these are smaller than MinDistance
+                    // then we need to search in another Quadrant 
+                    if ( 
+                        (TopDistance < MinDistance) || 
+                        (BotDistance < MinDistance) || 
+                        (LeftDistance < MinDistance) || 
+                        (RightDistance < MinDistance) )
+                        {
+                            // TODO
+                            Console.WriteLine("Not the nearest vehicle - look in adjacent Quadrant");    
+
+                        }
 
                     return (ReturnVehicle);
 

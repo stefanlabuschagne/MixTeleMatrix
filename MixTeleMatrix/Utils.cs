@@ -42,7 +42,7 @@ namespace MixTeleMatrix
         }
 
         // See if the vehicle is in the box
-        public static bool VehicleIsInBox(Vehicle vehicle1, MixTeleMatrix.Rectangle Box)
+        public static bool VehicleIsInRectangle(Vehicle vehicle1, MixTeleMatrix.Rectangle Box)
         {
 
             if ((vehicle1.Latitude <= Box.LatMax)
