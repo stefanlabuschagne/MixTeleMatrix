@@ -18,14 +18,14 @@ namespace MixTeleMatrix
             // Calculate the Base Area
             _baseArea = (Utils.CalculateAreaRectangle(daVehicleList));
 
-            // Split the base area in even Grid QUADRANTS (even amounts of rows and Colums)
+            // Split the base area in even Grid QUADRANTS (even amounts of Rows and Colums)
             // This can be increased if we want more quadrants (for a faster lookup time)
             // but the preparation time is more, having more quadrants to 
             // For more Test Vehicles
             _quadLevel = new QuadCollection(_baseArea, gridDimension);
 
             // Add The Vehicles to the respective Quadrants
-            AddVehicleToQuadrants(daVehicleList);
+            AddVehiclesToQuadrants(daVehicleList);
         }
 
         public void SanityCheckForTestVehicles(List<Vehicle> testVehicles)
@@ -51,7 +51,7 @@ namespace MixTeleMatrix
 
         }
 
-        private void AddVehicleToQuadrants(List<Vehicle> VehicleList)
+        private void AddVehiclesToQuadrants(List<Vehicle> VehicleList)
         {
             foreach (var Vehicle in VehicleList)
             {
@@ -62,14 +62,13 @@ namespace MixTeleMatrix
         private bool AddVehicle(Vehicle vehicle)
         {
 
-            if (Utils.VehicleIsInArea(vehicle, _baseArea))
+            if (true) // Utils.VehicleIsInArea(vehicle, _baseArea))
             {
 
                 foreach (var Quadrant in _quadLevel.SplitAreas)
                 {
                     if (Utils.VehicleIsInArea(vehicle, Quadrant.Quadrant))
                     {
-                        // if (Quadrant.Vehicles == null) { Quadrant.Vehicles = new List<Vehicle>(); }
                         Quadrant.Vehicles.Add(vehicle);
                         return true;
                     }
@@ -91,12 +90,12 @@ namespace MixTeleMatrix
                 var ClosestVehicle = GetNearestVehicle(CurrentTestVehicle);
 
                 Console.WriteLine($"Found Vehicle:          Lat: {ClosestVehicle.Latitude} Long: {ClosestVehicle.Longitude}");
-                //Console.WriteLine(ClosestVehicle.VehicleRegistration);
+
                 Console.WriteLine("");
             }
         }
 
-        private Vehicle GetNearestVehicle(Vehicle vehicle)
+        private Vehicle GetNearestVehicle(Vehicle testVehicle)
         {
             // Look for the quadrant with the nearest vehicle
             double MinDistance = 0;
@@ -104,21 +103,19 @@ namespace MixTeleMatrix
 
             foreach (var QuadrantArea in _quadLevel.SplitAreas)
             {
-                if (Utils.VehicleIsInArea(vehicle, QuadrantArea.Quadrant))
+                if (Utils.VehicleIsInArea(testVehicle, QuadrantArea.Quadrant))
                 {
 
                     //Console.WriteLine("Vehicle in quadrant - Entering Quadrant");
                     
                     // Calculate Distances for all the vehicles
-                    foreach( Vehicle V in QuadrantArea.Vehicles) 
+                    foreach( Vehicle Vehicle in QuadrantArea.Vehicles) 
                     {
-                        double VehicleDistance =  Utils.CalculateDistance(vehicle, V);
+                        double VehicleDistance =  Utils.CalculateDistance(testVehicle, Vehicle);
                         if ( (MinDistance == 0) || (VehicleDistance < MinDistance)  )
                         {
-                            ReturnVehicle = V;
-                            MinDistance = VehicleDistance;
-
-                            //Console.WriteLine("Found Vehicle");
+                            ReturnVehicle = Vehicle;
+                            MinDistance = VehicleDistance;                          
                         }
                     }
 

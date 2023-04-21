@@ -19,18 +19,18 @@ namespace MixTeleMatrix
 
             // Load Data
             var AllVehicleList = Utils.LoadVehicleList($"C:\\Users\\stefa\\downloads\\vehiclepositions_datafile\\VehiclePositions.dat");
+            
+            // Get Test Vehicles
+            var TestVehicles = Utils.GetTestVehcles();
 
             //Stopwatch.Stop();
             //Console.WriteLine($"{Stopwatch.ElapsedMilliseconds} milliseconds to load", (Stopwatch.ElapsedMilliseconds));
 
-
-            // Initalize the Quad Tree with the BaseArea
-            // Calculate Quadrants according to the grid dimension parameter (# of rows and cols)
-            // Load the vehicles into the created Quadrants
-            QuadTree QuadTreeStructure = new QuadTree(AllVehicleList,2);
-
-            // Get test Vehicles
-            var TestVehicles = Utils.GetTestVehcles();
+            // 1 - Initalize the Quad Tree with the BaseArea
+            // 2-  Calculate Quadrants according to the Grid-Dimension-Parameter (# of rows and cols)
+            // 3 - Load the vehicles into the created Quadrants
+            int GridDimensionParameter = 2;
+            QuadTree QuadTreeStructure = new QuadTree(AllVehicleList,GridDimensionParameter);
 
          /*
             Stopwatch = new Stopwatch();
