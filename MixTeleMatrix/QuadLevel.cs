@@ -38,7 +38,7 @@ namespace MixTeleMatrix
                                                                 C + ColIncrement,
                                                                 R,
                                                                 R + RowIncrement),
-                            Vehicles = null,
+                            Vehicles = new List<Vehicle>(),
                             ChildQuadItem = null
                         });
 

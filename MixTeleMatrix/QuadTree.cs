@@ -13,7 +13,7 @@ namespace MixTeleMatrix
     {
         readonly Rectangle _baseArea;
 
-        public QuadTree(List<Vehicle> daVehicleList)
+        public QuadTree(List<Vehicle> daVehicleList, int gridDimension)
         {
             // Calculate the Base Area
             _baseArea = (Utils.CalculateAreaRectangle(daVehicleList));
@@ -22,7 +22,7 @@ namespace MixTeleMatrix
             // This can be increased if we want more quadrants (for a faster lookup time)
             // but the preparation time is more, having more quadrants to 
             // For more Test Vehicles
-            _quadLevel = new QuadCollection(_baseArea,16);
+            _quadLevel = new QuadCollection(_baseArea, gridDimension);
 
             // Add The Vehicles to the respective Quadrants
             AddVehicleToQuadrants(daVehicleList);
@@ -33,13 +33,13 @@ namespace MixTeleMatrix
             Console.WriteLine("BaseArea;");
             Console.WriteLine(_baseArea.LatMin + " x " + _baseArea.LatMax + " x " + _baseArea.LonMin + " x " + _baseArea.LonMax);
 
-            foreach (var v in testVehicles)
+            foreach (var Vehicle in testVehicles)
             {
 
                 Console.WriteLine("Vehicle;");
-                Console.WriteLine(v.Latitude + " x " + v.Longitude);
+                Console.WriteLine(Vehicle.Latitude + " x " + Vehicle.Longitude);
 
-                if (Utils.VehicleIsInArea(v, _baseArea))
+                if (Utils.VehicleIsInArea(Vehicle, _baseArea))
                 {
 
                 }
@@ -69,7 +69,7 @@ namespace MixTeleMatrix
                 {
                     if (Utils.VehicleIsInArea(vehicle, Quadrant.Quadrant))
                     {
-                        if (Quadrant.Vehicles == null) { Quadrant.Vehicles = new List<Vehicle>(); }
+                        // if (Quadrant.Vehicles == null) { Quadrant.Vehicles = new List<Vehicle>(); }
                         Quadrant.Vehicles.Add(vehicle);
                         return true;
                     }
