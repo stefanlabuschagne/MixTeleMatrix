@@ -64,7 +64,7 @@ namespace MixTeleMatrix
             if (Utils.VehicleIsInArea(vehicle, _baseArea))
             {
 
-                foreach (var Quadrant in _quadLevel.SplitArea)
+                foreach (var Quadrant in _quadLevel.SplitAreas)
                 {
                     if (Utils.VehicleIsInArea(vehicle, Quadrant.Quadrant))
                     {
@@ -101,7 +101,7 @@ namespace MixTeleMatrix
             double MinDistance = 0;
             var ReturnVehicle = new Vehicle();
 
-            foreach (var QuadrantArea in _quadLevel.SplitArea)
+            foreach (var QuadrantArea in _quadLevel.SplitAreas)
             {
                 if (Utils.VehicleIsInArea(vehicle, QuadrantArea.Quadrant))
                 {

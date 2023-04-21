@@ -71,13 +71,13 @@ namespace MixTeleMatrix
 
             SA.Add(QI);
 
-            SplitArea = new List<QuadItem>();
-            SplitArea.AddRange(SA);
+            SplitAreas = new List<QuadItem>();
+            SplitAreas.AddRange(SA);
 
         }
 
         // This is the 4 Areas of the Parent Area
-        public List<QuadItem> SplitArea { get; set; }
+        public List<QuadItem> SplitAreas { get; set; }
     }
 
     public class QuadItem

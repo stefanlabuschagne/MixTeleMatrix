@@ -18,4 +18,5 @@ namespace MixTeleMatrix
 
         public UInt64 RecordedTimeUTC { get; set; }  // 8 Bytes (64bits)
     }
+
 }

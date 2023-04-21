@@ -20,9 +20,15 @@ namespace MixTeleMatrix
             // Load Data
             var AllVehicleList = Utils.LoadVehicleList($"C:\\Users\\stefa\\downloads\\vehiclepositions_datafile\\VehiclePositions.dat");
 
+
+            //Stopwatch.Stop();
+            //Console.WriteLine($"{Stopwatch.ElapsedMilliseconds} milliseconds to load", (Stopwatch.ElapsedMilliseconds));
+
+
             // Initalize the Quad Tree with the BaseArea
             // Calculate Quadrants
             // Load the vehicles into the Quadrants
+
             QuadTree QuadTreeStructure = new QuadTree(AllVehicleList);
 
             // Get test Vehicles
@@ -30,9 +36,6 @@ namespace MixTeleMatrix
 
             // QT.SanityCheckForTestVehicles(TestVehicles);
 
-            //var Stopwatch = new Stopwatch();
-            //Stopwatch.Reset();
-            //Stopwatch.Start();
 
             // Return the closest vehicle to each of the TEST vehicles
             QuadTreeStructure.FindNearestVehicle(TestVehicles);
@@ -43,5 +46,5 @@ namespace MixTeleMatrix
         }
 
     }
-        // Get the vehicle within the shortest distance from the TEST vehicle
+    // Get the vehicle within the shortest distance from the TEST vehicle
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -128,7 +129,7 @@ namespace MixTeleMatrix
 
        public static List<Vehicle> LoadVehicleList(string Filename)
         {
-            var daVehicleList = new List<Vehicle>();
+            var ReturnVehicleList = new List<Vehicle>();
             StringBuilder VehicleRegistration = new StringBuilder();
 
             using (var stream = File.Open(Filename, FileMode.Open))
@@ -142,7 +143,6 @@ namespace MixTeleMatrix
                         {
 
                             var InputVehicle = new Vehicle();
-
                             InputVehicle.Positionid = reader.ReadInt32();
                             char c = reader.ReadChar();
                             while (c != '\0')
@@ -155,10 +155,7 @@ namespace MixTeleMatrix
                             InputVehicle.Latitude = reader.ReadSingle();
                             InputVehicle.Longitude = reader.ReadSingle();
                             InputVehicle.RecordedTimeUTC = (ulong)reader.ReadInt64();
-
-                            // Console.WriteLine(daVehicle.Latitude + ";" + daVehicle.Longitude + ";" + daVehicle.VehicleRegistration);
-
-                            daVehicleList.Add(InputVehicle);
+                            ReturnVehicleList.Add(InputVehicle);
 
                         }
 
@@ -177,7 +174,7 @@ namespace MixTeleMatrix
 
             }
 
-            return daVehicleList;
+            return ReturnVehicleList;
 
         }
 
