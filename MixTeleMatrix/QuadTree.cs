@@ -85,11 +85,11 @@ namespace MixTeleMatrix
             foreach (var CurrentTestVehicle in TestVehicles)
             {
 
-                Console.WriteLine("Looking Around Vehicle: Lat: " + CurrentTestVehicle.Latitude + " Long: "+ CurrentTestVehicle.Longitude);
+                Console.WriteLine($"Looking Around Vehicle: Lat: {CurrentTestVehicle.Latitude} Long: {CurrentTestVehicle.Longitude}");
 
                 var ClosestVehicle = GetNearestVehicle(CurrentTestVehicle);
 
-                Console.WriteLine("Found Vehicle:          Lat: " + ClosestVehicle.Latitude + " Long: " + ClosestVehicle.Longitude);
+                Console.WriteLine($"Found Vehicle:          Lat: {ClosestVehicle.Latitude} Long: {ClosestVehicle.Longitude}");
                 //Console.WriteLine(ClosestVehicle.VehicleRegistration);
                 Console.WriteLine("");
             }
