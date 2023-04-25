@@ -76,6 +76,29 @@ namespace MixTeleMatrix
                 }
 
             }
+            else
+            {
+                // Work in Progress 
+                int X = Utils.CalculateQuadrantIndex(_baseArea, (int)Math.Sqrt(_quadLevel.SplitAreas.Count)  , vehicle);
+                    try{
+                    if (Utils.VehicleIsInArea(vehicle, _quadLevel.SplitAreas[X].Quadrant))
+                        {
+                            // Do some calculation to get the right quadrant
+                            _quadLevel.SplitAreas[X].Vehicles.Add(vehicle);
+                            // Console.WriteLine("Correct quadrant calculated");
+
+                        }
+                    else
+                        {
+                            { Console.WriteLine("Wrong quadrant calculated"); }
+                        }
+                    }
+                    catch (Exception exception)
+                    {
+                         { Console.WriteLine("Wrong quadrant calculated"); }
+                    }
+            }
+
             return false;
 
         }

@@ -19,6 +19,7 @@ namespace MixTeleMatrix
             float RowIncrement = (BaseArea.LonMax - BaseArea.LonMin)/ gridDimensions;
 
             SplitAreas = new List<QuadItem>();
+            // SplitAreas.Capacity = gridDimensions * gridDimensions;
 
             float R = BaseArea.LonMin; // LONGITUDES  
             for (var Row = 1; Row <= gridDimensions; Row++)

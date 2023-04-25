@@ -10,6 +10,28 @@ namespace MixTeleMatrix
     public static class Utils
     {
 
+        public static int CalculateQuadrantIndex(Rectangle R,int GridDimensions,Vehicle V)
+        {
+            // Returns the QuadrantIndex Index we need to add the  
+            float QuadrantWidth = (R.LonMax - R.LonMin) / GridDimensions;   // Width of a Quadrant
+            float QuadrantHeight = (R.LatMax - R.LatMin) / GridDimensions;   // Height of a Quadrant
+
+            float LatOffset = R.LatMin - V.Latitude;  // distance  from the bottom
+            float LonOffset = V.Longitude - R.LonMin;   // distance from the left
+
+            int rows = Math.Abs((int) (LatOffset / QuadrantHeight));  // # rows we span from the bottom
+            int cols = (int) (LonOffset / QuadrantWidth);  // #  Cols we span 
+
+
+            // Rows are built bottomLeft -up into columns
+
+            int returnIndex = (rows) + (cols * GridDimensions);
+
+            // Convert this to a Tabindex
+            return (returnIndex);
+
+        }
+
         public static double CalculateDistance(Vehicle vehicle1, Vehicle vehicle2)
         {
             // Calculate the Distance
@@ -130,6 +152,7 @@ namespace MixTeleMatrix
        public static List<Vehicle> LoadVehicleList(string Filename)
         {
             var ReturnVehicleList = new List<Vehicle>();
+            ReturnVehicleList.Capacity = 2000010;
             StringBuilder VehicleRegistration = new StringBuilder();
 
             using (var stream = File.Open(Filename, FileMode.Open))
