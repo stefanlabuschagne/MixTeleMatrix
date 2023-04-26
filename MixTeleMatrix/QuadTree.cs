@@ -78,7 +78,7 @@ namespace MixTeleMatrix
             }
             else
             {
-                // Work in Progress 
+                // POC in Progress 
                 int X = Utils.CalculateQuadrantIndex(_baseArea, (int)Math.Sqrt(_quadLevel.SplitAreas.Count)  , vehicle);
                     try{
                     if (Utils.VehicleIsInArea(vehicle, _quadLevel.SplitAreas[X].Quadrant))
