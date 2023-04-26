@@ -81,7 +81,7 @@ namespace MixTeleMatrix
         public static List<Vehicle> GetTestVehcles()
         {
 
-                    var TestVehicleList = new List<Vehicle>()
+                    return( new List<Vehicle>()
                          {
     
                                 new Vehicle()
@@ -144,9 +144,8 @@ namespace MixTeleMatrix
                                 Latitude = (float)32.234235,
                                 Longitude = (float)-100.222222
                             }
-                    };
+                    });
 
-            return TestVehicleList;
         }
 
        public static List<Vehicle> LoadVehicleList(string Filename)
