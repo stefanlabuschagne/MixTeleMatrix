@@ -11,7 +11,10 @@ namespace MixTeleMatrix
 {
     public class QuadTree
     {
-        readonly Rectangle _baseArea;
+        private readonly Rectangle _baseArea;
+
+        // Contains the Split level and the vehicles
+        private QuadCollection _quadLevel { get; set; } = null;
 
         public QuadTree(List<Vehicle> vehicleList, int gridDimension)
         {
@@ -51,9 +54,24 @@ namespace MixTeleMatrix
 
         }
 
+        public void FindNearestVehicle(List<Vehicle> TestVehicles)
+        {
+            foreach (var CurrentTestVehicle in TestVehicles)
+            {
+
+                Console.WriteLine($"Looking Around Vehicle: Lat: {CurrentTestVehicle.Latitude} Long: {CurrentTestVehicle.Longitude}");
+
+                var ClosestVehicle = GetNearestVehicle(CurrentTestVehicle);
+
+                Console.WriteLine($"Found Vehicle:          Lat: {ClosestVehicle.Latitude} Long: {ClosestVehicle.Longitude}");
+
+                Console.WriteLine("");
+            }
+        }
+
         private void AddVehiclesToQuadrants(List<Vehicle> VehicleList)
         {
-            foreach (var Vehicle in VehicleList)
+            foreach (Vehicle Vehicle in VehicleList)
             {
                 AddVehicle(Vehicle);
             }
@@ -101,21 +119,6 @@ namespace MixTeleMatrix
 
             return false;
 
-        }
-
-        public void FindNearestVehicle(List<Vehicle> TestVehicles)
-        {
-            foreach (var CurrentTestVehicle in TestVehicles)
-            {
-
-                Console.WriteLine($"Looking Around Vehicle: Lat: {CurrentTestVehicle.Latitude} Long: {CurrentTestVehicle.Longitude}");
-
-                var ClosestVehicle = GetNearestVehicle(CurrentTestVehicle);
-
-                Console.WriteLine($"Found Vehicle:          Lat: {ClosestVehicle.Latitude} Long: {ClosestVehicle.Longitude}");
-
-                Console.WriteLine("");
-            }
         }
 
         private Vehicle GetNearestVehicle(Vehicle testVehicle)
@@ -179,9 +182,6 @@ namespace MixTeleMatrix
             return (ReturnVehicle);
 
         }
-
-        // Contains the Split level and the vehicles
-        private QuadCollection _quadLevel { get; set; } = null;
 
     }
 

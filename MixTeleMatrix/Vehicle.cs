@@ -8,7 +8,7 @@ namespace MixTeleMatrix
 {
     public class Vehicle
     {
-       public Int32 Positionid { get; set; } // Signed 32-bit integer (32 bits)
+        public Int32 Positionid { get; set; } // Signed 32-bit integer (32 bits)
 
         public string VehicleRegistration { get; set; } // Null Terminated ASCII String 00000000 00000000
 

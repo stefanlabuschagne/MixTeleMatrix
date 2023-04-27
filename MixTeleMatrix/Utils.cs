@@ -48,17 +48,24 @@ namespace MixTeleMatrix
 
         public static MixTeleMatrix.Rectangle CalculateAreaRectangle(List<Vehicle> daVehicleList)
         {
+            // Calcutale the Base Area
+            float LatMax = float.MinValue;
+            float LatMin = float.MaxValue;
 
-            // Calcutalethe Base Area
-            var sortedLatReadinglist = daVehicleList.OrderByDescending(p => p.Latitude);
+            float LonMax = float.MinValue;
+            float LonMin = float.MaxValue;
 
-            var LatMax = sortedLatReadinglist.FirstOrDefault().Latitude;
-            var LatMin = sortedLatReadinglist.LastOrDefault().Latitude;
+            // Fatster than Uning LINQ
+            foreach (Vehicle V in daVehicleList)
+            {
 
-            var sortedLongReadinglist = daVehicleList.OrderByDescending(p => p.Longitude);
+                LatMax = (V.Latitude > LatMax) ? V.Latitude : LatMax;
+                LatMin = (V.Latitude < LatMin) ? V.Latitude : LatMin;
 
-            var LonMax = sortedLongReadinglist.FirstOrDefault().Longitude;
-            var LonMin = sortedLongReadinglist.LastOrDefault().Longitude;
+                LonMax = (V.Longitude > LonMax) ? V.Longitude : LonMax;
+                LonMin = (V.Longitude < LonMin) ? V.Longitude : LonMin;
+
+            }
 
             return new MixTeleMatrix.Rectangle(LatMin, LatMax, LonMin, LonMax);
 

@@ -20,10 +20,10 @@ namespace MixTeleMatrix
 
         }
 
-        public float LatMin { get; set; }  
-        public float LatMax { get; set; }  
-        public float LonMin { get; set; }
-        public float LonMax { get; set; }
+        public float LatMin { get; }  
+        public float LatMax { get; }  
+        public float LonMin { get; }
+        public float LonMax { get; }
 
      }
 }

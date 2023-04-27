@@ -59,7 +59,7 @@ namespace MixTeleMatrix
         public List<QuadItem> SplitAreas { get; set; }
     }
 
-    public class QuadItem
+    public class QuadItem : IQuadItem
     {
 
         public Rectangle Quadrant { get; set; }
