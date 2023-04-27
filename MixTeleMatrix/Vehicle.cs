@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MixTeleMatrix
 {
-    public class Vehicle
+    public class Vehicle : IVehicle
     {
         public Int32 Positionid { get; set; } // Signed 32-bit integer (32 bits)
 

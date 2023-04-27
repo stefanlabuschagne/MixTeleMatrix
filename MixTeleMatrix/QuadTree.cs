@@ -23,7 +23,7 @@ namespace MixTeleMatrix
 
             // Split the base area in even Grid QUADRANTS (even amounts of Rows and Colums)
             // This can be increased if we want more quadrants (for a faster lookup time)
-            // but the preparation time is more, having more quadrants to 
+            // but the preparation time is more, having more quadrants to populate
             // For more Test Vehicles
             _quadLevel = new QuadCollection(_baseArea, gridDimension);
 

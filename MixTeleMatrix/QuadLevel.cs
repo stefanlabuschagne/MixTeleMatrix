@@ -29,8 +29,6 @@ namespace MixTeleMatrix
                 for (var Col = 1; Col <= gridDimensions; Col++)
                 {
 
-                    // Console.WriteLine($"{C} {C+ColIncrement} {R} {R+RowIncrement}");
-
                     SplitAreas.Add(
                         new QuadItem()
                         {
@@ -46,8 +44,6 @@ namespace MixTeleMatrix
                     C = C + ColIncrement;
 
                 }
-
-                // Console.WriteLine($"");
 
                 R = R + RowIncrement;
 
