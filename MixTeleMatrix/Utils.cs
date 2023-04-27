@@ -10,14 +10,14 @@ namespace MixTeleMatrix
     public static class Utils
     {
 
-        public static int CalculateQuadrantIndex(Rectangle R,int GridDimensions,Vehicle V)
+        public static int CalculateQuadrantIndex(Rectangle Area,int GridDimensions,Vehicle Vehicle)
         {
-            // Returns the QuadrantIndex Index we need to add the  
-            float QuadrantWidth = (R.LonMax - R.LonMin) / GridDimensions;   // Width of a Quadrant
-            float QuadrantHeight = (R.LatMax - R.LatMin) / GridDimensions;   // Height of a Quadrant
+            // Returns the QuadrantIndex Index we need to add the Vehicle to
+            float QuadrantWidth = (Area.LonMax - Area.LonMin) / GridDimensions;   // Width of a Quadrant
+            float QuadrantHeight = (Area.LatMax - Area.LatMin) / GridDimensions;   // Height of a Quadrant
 
-            float LatOffset = R.LatMin - V.Latitude;  // distance  from the bottom
-            float LonOffset = V.Longitude - R.LonMin;   // distance from the left
+            float LatOffset = Area.LatMin - Vehicle.Latitude;  // distance  from the bottom
+            float LonOffset = Vehicle.Longitude - Area.LonMin;   // distance from the left
 
             int rows = Math.Abs((int) (LatOffset / QuadrantHeight));  // # rows we span from the bottom
             int cols = (int) (LonOffset / QuadrantWidth);  // #  Cols we span 
@@ -35,15 +35,11 @@ namespace MixTeleMatrix
         public static double CalculateDistance(Vehicle vehicle1, Vehicle vehicle2)
         {
             // Calculate the Distance
-            var horDistance = Math.Abs(vehicle1.Longitude - vehicle2.Longitude);
-            var verDistance = Math.Abs(vehicle1.Latitude - vehicle2.Latitude);
+            return (Math.Sqrt(
+                                (Math.Pow((Math.Abs(vehicle1.Longitude - vehicle2.Longitude)), 2)) +
+                                (Math.Pow((Math.Abs(vehicle1.Latitude - vehicle2.Latitude)), 2))
+                            ));
 
-            var directDistance = (Math.Sqrt(
-                                            (Math.Pow(horDistance, 2)) +
-                                            (Math.Pow(verDistance, 2))
-                                            ));
-
-            return (directDistance);
         }
 
         public static MixTeleMatrix.Rectangle CalculateAreaRectangle(List<Vehicle> daVehicleList)
@@ -75,14 +71,11 @@ namespace MixTeleMatrix
         public static bool VehicleIsInArea(Vehicle vehicle1, MixTeleMatrix.Rectangle Box)
         {
 
-            if ((vehicle1.Latitude <= Box.LatMax)
+            return ((vehicle1.Latitude <= Box.LatMax)
                 && (vehicle1.Latitude >= Box.LatMin)
                     && (vehicle1.Longitude <= Box.LonMax)
-                        && (vehicle1.Longitude >= Box.LonMin))
-            { return true; }
-
-            return false;
-
+                        && (vehicle1.Longitude >= Box.LonMin));
+ 
         }
 
         public static List<Vehicle> GetTestVehcles()
@@ -183,6 +176,7 @@ namespace MixTeleMatrix
                             InputVehicle.Latitude = reader.ReadSingle();
                             InputVehicle.Longitude = reader.ReadSingle();
                             InputVehicle.RecordedTimeUTC = (ulong)reader.ReadInt64();
+
                             ReturnVehicleList.Add(InputVehicle);
 
                         }

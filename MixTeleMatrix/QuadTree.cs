@@ -24,7 +24,7 @@ namespace MixTeleMatrix
             // Split the base area in even Grid QUADRANTS (even amounts of Rows and Colums)
             // This can be increased if we want more quadrants (for a faster lookup time)
             // but the preparation time is more, having more quadrants to populate
-            // For more Test Vehicles
+            // for more Test Vehicles
             _quadLevel = new QuadCollection(_baseArea, gridDimension);
 
             // Add The Vehicles to the respective Quadrants
@@ -42,13 +42,9 @@ namespace MixTeleMatrix
                 Console.WriteLine("Vehicle;");
                 Console.WriteLine(Vehicle.Latitude + " x " + Vehicle.Longitude);
 
-                if (Utils.VehicleIsInArea(Vehicle, _baseArea))
-                {
-
-                }
-                else
-                {
-                    Console.WriteLine("Test Vehicle Out of Bounds!");
+                if (!Utils.VehicleIsInArea(Vehicle, _baseArea))
+                { 
+                    Console.WriteLine("Test Vehicle Outside of BaseArea!");
                 }
             }
 
@@ -80,7 +76,7 @@ namespace MixTeleMatrix
         private bool AddVehicle(Vehicle vehicle)
         {
 
-            if (true) // Utils.VehicleIsInArea(vehicle, _baseArea))
+            if (true)
             {
 
                 foreach (var Quadrant in _quadLevel.SplitAreas)
@@ -97,24 +93,25 @@ namespace MixTeleMatrix
             else
             {
                 // POC in Progress 
-                int X = Utils.CalculateQuadrantIndex(_baseArea, (int)Math.Sqrt(_quadLevel.SplitAreas.Count)  , vehicle);
-                    try{
-                    if (Utils.VehicleIsInArea(vehicle, _quadLevel.SplitAreas[X].Quadrant))
+                int X = Utils.CalculateQuadrantIndex(_baseArea, (int)Math.Sqrt(_quadLevel.SplitAreas.Count), vehicle);
+                    try
                         {
-                            // Do some calculation to get the right quadrant
-                            _quadLevel.SplitAreas[X].Vehicles.Add(vehicle);
-                            // Console.WriteLine("Correct quadrant calculated");
+                            if (Utils.VehicleIsInArea(vehicle, _quadLevel.SplitAreas[X].Quadrant))
+                                {
+                                    // Do some calculation to get the right quadrant
+                                    _quadLevel.SplitAreas[X].Vehicles.Add(vehicle);
+                                    // Console.WriteLine("Correct quadrant calculated");
 
+                                }
+                            else
+                                {
+                                    Console.WriteLine($"Wrong quadrant Index calculated: {X}");
+                                }
                         }
-                    else
-                        {
-                            { Console.WriteLine("Wrong quadrant calculated"); }
-                        }
-                    }
                     catch (Exception exception)
-                    {
-                         { Console.WriteLine("Wrong quadrant calculated"); }
-                    }
+                        {
+                            Console.WriteLine($"Wrong quadrant Index calculated: {X}");
+                        }
             }
 
             return false;
@@ -178,7 +175,6 @@ namespace MixTeleMatrix
 
             }
 
-            // Sanity Check for other quadrants
             return (ReturnVehicle);
 
         }

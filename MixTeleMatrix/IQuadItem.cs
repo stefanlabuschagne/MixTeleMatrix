@@ -6,4 +6,5 @@
         Rectangle Quadrant { get; set; }
         List<Vehicle> Vehicles { get; set; }
     }
+
 }

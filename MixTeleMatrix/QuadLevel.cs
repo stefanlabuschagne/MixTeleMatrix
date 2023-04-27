@@ -21,11 +21,11 @@ namespace MixTeleMatrix
             SplitAreas = new List<QuadItem>();
             SplitAreas.Capacity = gridDimensions * gridDimensions;
 
-            float R = BaseArea.LonMin; // LONGITUDES  
+            float R = BaseArea.LonMin; // LONGITUDES  (Left to Right Loop)
             for (var Row = 1; Row <= gridDimensions; Row++)
             {
 
-                float C = BaseArea.LatMin; // LATITUDES 
+                float C = BaseArea.LatMin; // LATITUDES  (Bottom Up Loop)
                 for (var Col = 1; Col <= gridDimensions; Col++)
                 {
 
@@ -41,18 +41,18 @@ namespace MixTeleMatrix
                             ChildQuadItem = null
                         });
 
-                    C = C + ColIncrement;
+                    C += ColIncrement;
 
                 }
 
-                R = R + RowIncrement;
+                R += RowIncrement;
 
             }
 
         }
 
-        // This is the 4 Areas of the Parent Area
-        public List<QuadItem> SplitAreas { get; set; }
+        // This is the Areas of the Parent Area
+        public List<QuadItem> SplitAreas { get; }
     }
 
     public class QuadItem : IQuadItem
